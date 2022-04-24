@@ -1,5 +1,6 @@
 package com.suzhongde.yilimusic.service;
 
+import com.suzhongde.yilimusic.dto.TokenCreateRequest;
 import com.suzhongde.yilimusic.dto.UserCreateRequest;
 import com.suzhongde.yilimusic.dto.UserDto;
 import com.suzhongde.yilimusic.dto.UserUpdateRequest;
@@ -22,4 +23,9 @@ public interface UserService extends UserDetailsService {
     void delete(String id);
 
     Page<UserDto> search(Pageable pageable);
+
+
+    String createToken(TokenCreateRequest tokenCreateRequest);
+
+    UserDto getCurrentUser();
 }
