@@ -23,8 +23,7 @@ public interface UserService extends UserDetailsService {
     void delete(String id);
 
     Page<UserDto> search(Pageable pageable);
-
-
+    
     String createToken(TokenCreateRequest tokenCreateRequest);
 
     UserDto getCurrentUser();

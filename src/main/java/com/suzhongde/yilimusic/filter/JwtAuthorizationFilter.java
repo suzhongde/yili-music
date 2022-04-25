@@ -3,6 +3,8 @@ package com.suzhongde.yilimusic.filter;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.suzhongde.yilimusic.config.SecurityConfig;
+import com.suzhongde.yilimusic.entity.User;
+import com.suzhongde.yilimusic.service.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,16 +15,19 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 /**
  * 过滤器处理所有HTTP请求，并检查是否存在带有正确令牌的Authorization标头。例如，如果令牌未过期或签名密钥正确。
  */
 public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 
-    public JwtAuthorizationFilter(AuthenticationManager authenticationManager) {
+    public JwtAuthorizationFilter(AuthenticationManager authenticationManager,
+                                  UserService userService) {
         super(authenticationManager);
+        this.userService = userService;
     }
+
+    UserService userService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -45,11 +50,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
                     .verify(header.replace(SecurityConfig.TOKEN_PREFIX, ""))
                     .getSubject();
             if (username != null) {
-                return new UsernamePasswordAuthenticationToken(username, null, new ArrayList<>());
+                User user = userService.loadUserByUsername(username);
+                return new UsernamePasswordAuthenticationToken(username, null, user.getAuthorities());
             }
         }
         return null;
     }
-
-
 }
