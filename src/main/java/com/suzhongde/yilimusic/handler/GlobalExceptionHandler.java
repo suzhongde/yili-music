@@ -3,6 +3,7 @@ package com.suzhongde.yilimusic.handler;
 import com.suzhongde.yilimusic.exception.BizException;
 import com.suzhongde.yilimusic.exception.ErrorResponse;
 import com.suzhongde.yilimusic.exception.ExceptionType;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -15,6 +16,7 @@ import java.util.List;
 
 
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = BizException.class)

@@ -1,9 +1,13 @@
 package com.suzhongde.yilimusic.service;
 
+import com.suzhongde.yilimusic.dto.FileDto;
 import com.suzhongde.yilimusic.dto.FileUploadDto;
 import com.suzhongde.yilimusic.dto.FileUploadRequest;
 
-public interface FileService {
+import java.io.IOException;
 
-    FileUploadDto initUpload(FileUploadRequest fileUploadRequest);
+public interface FileService {
+    FileUploadDto initUpload(FileUploadRequest fileUploadRequest) throws IOException;
+
+    FileDto finishUpload(String id);
 }
