@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class UserVo {
+public class UserVo extends BaseVo {
 
     private String id;
 
@@ -19,7 +19,6 @@ public class UserVo {
     private Boolean locked;
 
     private Boolean enabled;
-
     
     private List<RoleVo> roles;
 }
