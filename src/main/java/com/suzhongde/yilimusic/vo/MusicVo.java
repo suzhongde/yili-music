@@ -12,5 +12,6 @@ public class MusicVo extends BaseVo {
     private MusicStatus status;
 
     private String description;
-
+    
+    private FileVo file;
 }
