@@ -5,7 +5,7 @@ import com.suzhongde.yilimusic.entity.Playlist;
 import com.suzhongde.yilimusic.vo.PlaylistVo;
 import org.mapstruct.Mapper;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = MusicMapper.class)
 public interface PlaylistMapper {
     PlaylistDto toDto(Playlist playlist);
 

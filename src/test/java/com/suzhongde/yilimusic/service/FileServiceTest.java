@@ -10,12 +10,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.test.context.support.WithMockUser;
 
 import java.io.IOException;
 
 @SpringBootTest
 @Slf4j
-class FileServiceTest {
+class FileServiceTest extends BaseService {
 
     private FileService fileService;
 
@@ -23,7 +24,7 @@ class FileServiceTest {
     @Test
     void initUpload() throws IOException {
         FileUploadRequest fileUploadRequest = new FileUploadRequest();
-        fileUploadRequest.setName("测试文件名");
+        fileUploadRequest.setName("测试文件名112");
         fileUploadRequest.setExt("mp3");
         fileUploadRequest.setKey("835741aba850778a5b06bfd57f55c98c");
         fileUploadRequest.setSize(30000L);
@@ -39,7 +40,7 @@ class FileServiceTest {
     @Test
     void initUploadMaxSize() throws IOException {
         FileUploadRequest fileUploadRequest = new FileUploadRequest();
-        fileUploadRequest.setName("测试文件名");
+        fileUploadRequest.setName("测试文件名112");
         fileUploadRequest.setExt("mp3");
         fileUploadRequest.setKey("835741aba850778a5b06bfd57f55c98c");
         fileUploadRequest.setSize(6082813636L);
@@ -52,9 +53,10 @@ class FileServiceTest {
     }
 
     @Test
+    @WithMockUser(username = "yili")
     void finishUpload() throws IOException {
         FileUploadRequest fileUploadRequest = new FileUploadRequest();
-        fileUploadRequest.setName("测试文件名");
+        fileUploadRequest.setName("测试文件名112");
         fileUploadRequest.setExt("mp3");
         fileUploadRequest.setKey("835741aba850778a5b06bfd57f55c98c");
         fileUploadRequest.setSize(30000L);
@@ -76,4 +78,5 @@ class FileServiceTest {
     private void setFileService(FileService fileService) {
         this.fileService = fileService;
     }
+
 }
