@@ -1,16 +1,22 @@
 package com.suzhongde.yilimusic.service.impl;
 
 import com.suzhongde.yilimusic.dto.MusicDto;
+import com.suzhongde.yilimusic.dto.MusicSearchFilter;
 import com.suzhongde.yilimusic.entity.Music;
 import com.suzhongde.yilimusic.enums.MusicStatus;
 import com.suzhongde.yilimusic.exception.ExceptionType;
 import com.suzhongde.yilimusic.mapper.MapperInterface;
 import com.suzhongde.yilimusic.mapper.MusicMapper;
 import com.suzhongde.yilimusic.repository.MusicRepository;
+import com.suzhongde.yilimusic.repository.specs.MusicSpecification;
+import com.suzhongde.yilimusic.repository.specs.SearchCriteria;
+import com.suzhongde.yilimusic.repository.specs.SearchOperation;
 import com.suzhongde.yilimusic.service.MusicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +30,18 @@ public class MusicServiceImpl extends GeneralServiceImpl<Music, MusicDto> implem
     @Override
     public MusicDto create(MusicDto musicDto) {
         return super.create(musicDto);
+    }
+
+    @Override
+    public Page<MusicDto> search(MusicSearchFilter musicSearchRequest) {
+        if (musicSearchRequest == null) {
+            musicSearchRequest = new MusicSearchFilter();
+        }
+        MusicSpecification specs = new MusicSpecification();
+        specs.add(new SearchCriteria("name", musicSearchRequest.getName(), SearchOperation.MATCH));
+        Sort sort = Sort.by(Sort.Direction.DESC, "createdTime");
+        Pageable pageable = PageRequest.of(musicSearchRequest.getPage() - 1, musicSearchRequest.getSize(), sort);
+        return repository.findAll(specs, pageable).map(mapper::toDto);
     }
 
     @Override
@@ -66,9 +84,5 @@ public class MusicServiceImpl extends GeneralServiceImpl<Music, MusicDto> implem
     public ExceptionType getNotFoundExceptionType() {
         return ExceptionType.MUSIC_NOT_FOUND;
     }
-
-    @Override
-    public Page<MusicDto> search(MusicDto searchDto, Pageable pageable) {
-        return null;
-    }
+    
 }
