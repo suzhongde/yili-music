@@ -1,17 +1,9 @@
 package com.suzhongde.yilimusic.service;
 
-import com.suzhongde.yilimusic.dto.MusicCreateRequest;
 import com.suzhongde.yilimusic.dto.MusicDto;
-import com.suzhongde.yilimusic.dto.MusicUpdateRequest;
+import com.suzhongde.yilimusic.entity.Music;
 
-import java.util.List;
-
-public interface MusicService {
-    MusicDto create(MusicCreateRequest musicCreateRequest);
-
-    MusicDto update(String id, MusicUpdateRequest musicUpdateRequest);
-
-    List<MusicDto> list();
+public interface MusicService extends GeneralService<Music, MusicDto> {
 
     void publish(String id);
 
