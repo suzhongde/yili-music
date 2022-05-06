@@ -2,22 +2,18 @@ package com.suzhongde.yilimusic.dto;
 
 import com.suzhongde.yilimusic.enums.MusicStatus;
 import lombok.Data;
-
-import java.util.Date;
+import lombok.ToString;
 
 @Data
-public class MusicDto {
+@ToString(callSuper = true)
+public class MusicDto extends BaseDto {
     private String id;
 
     private String name;
 
-    private MusicStatus status;
+    private MusicStatus status = MusicStatus.DRAFT;
 
     private String description;
 
     private FileDto file;
-
-    private Date createdTime;
-
-    private Date updatedTime;
 }

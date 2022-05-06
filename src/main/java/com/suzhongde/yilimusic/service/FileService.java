@@ -3,6 +3,7 @@ package com.suzhongde.yilimusic.service;
 import com.suzhongde.yilimusic.dto.FileDto;
 import com.suzhongde.yilimusic.dto.FileUploadDto;
 import com.suzhongde.yilimusic.dto.FileUploadRequest;
+import com.suzhongde.yilimusic.entity.File;
 import com.suzhongde.yilimusic.enums.Storage;
 
 import java.io.IOException;
@@ -13,4 +14,6 @@ public interface FileService {
     FileDto finishUpload(String id);
 
     Storage getDefaultStorage();
+
+    File getFileEntity(String id);
 }
