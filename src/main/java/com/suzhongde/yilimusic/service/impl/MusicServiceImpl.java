@@ -26,11 +26,7 @@ public class MusicServiceImpl extends GeneralServiceImpl<Music, MusicDto> implem
     private MusicRepository repository;
 
     private MusicMapper mapper;
-
-    @Override
-    public MusicDto create(MusicDto musicDto) {
-        return super.create(musicDto);
-    }
+    
 
     @Override
     public Page<MusicDto> search(MusicSearchFilter musicSearchRequest) {
@@ -84,5 +80,5 @@ public class MusicServiceImpl extends GeneralServiceImpl<Music, MusicDto> implem
     public ExceptionType getNotFoundExceptionType() {
         return ExceptionType.MUSIC_NOT_FOUND;
     }
-    
+
 }
