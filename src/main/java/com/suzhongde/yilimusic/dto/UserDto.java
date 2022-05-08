@@ -22,8 +22,6 @@ public class UserDto {
 
     private Boolean enabled;
 
-    private String openId;
-
     private String lastLoginIp;
 
     private Date lastLoginTime;
